@@ -1,5 +1,6 @@
 $SourceURL = ""
 $APIKey = ""
+$reponame = ""
 
 
 #remap nuget
@@ -51,7 +52,7 @@ foreach ($psd in $psds){
 
 #add source
 write-host "... adding Artifact Feed to NuGet sources" 
-nuget sources Add -Name "PS_repo_test" -Source "$SourceURL"
+nuget sources Add -Name $reponame -Source "$SourceURL"
 
 #pack up nuspec files
 write-host "... gathering Nuspec files" 
@@ -66,4 +67,4 @@ write-host "... Gathering Packages"
 $pkgs = get-childitem *.nupkg -recurse
 foreach($pkg in $pkgs){
     write-host "... Pushing $pkg to NuGet Source"  
-    nuget push $pkg -source 'PS_repo_test' -apikey $APIKey -skipduplicate
+    nuget push $pkg -source $reponame -apikey $APIKey -skipduplicate
